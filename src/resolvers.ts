@@ -17,8 +17,21 @@ interface PlinkoBet {
 export const resolvers = {
   Query: {
     hello: () => 'Hello world!',
-  },
-  Mutation: {
+    getUser: async (_: any, { address }: { address: string }) => {
+      try {
+        console.log(address)
+        const user = await prisma.prisma.user.findUnique({
+          where: { address },
+        });
+        return user;
+      } catch (error) {
+        console.error('Error fetching user:', error);
+
+        return error;
+
+      }
+    },
+  }, Mutation: {
     connectWallet: async (_: any, { address }: { address: string }) => {
       try {
         const existingUser = await prisma.prisma.user.findUnique({
@@ -33,8 +46,9 @@ export const resolvers = {
               address,
             },
           });
-          return 'Successfully saved user in the database.';
         }
+        return 'Successfully saved user in the database.';
+
       } catch (error) {
         console.error('Error connecting wallet:', error);
         throw new Error('Failed to connect wallet.');
