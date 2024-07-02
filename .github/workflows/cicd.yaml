@@ -41,7 +41,7 @@ jobs:
 
       - name: Pull latest changes and restart application
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/myec2.pem ec2-54-88-176-86.compute-1.amazonaws.com << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/myec2.pem ubuntu@ec2-54-88-176-86.compute-1.amazonaws.com << 'EOF'
             cd Blinko-Backend
             git pull 
             npm install
